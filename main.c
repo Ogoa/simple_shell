@@ -1,5 +1,7 @@
 #include "main.h"
 
+int token_counter(char **lineptr);
+
 /**
  * main - Implement a simple shell program
  * @argc: Number of arguments passed to the program in the terminal
@@ -26,13 +28,7 @@ int main(__attribute__((unused))int argc, char **argv)
 			free(lineptr);
 			exit(EXIT_SUCCESS);
 		}
-		token = _strtok(lineptr, delim);
-		while (token)
-		{
-			token_count++;
-			free(token);
-			token = _strtok(NULL, delim);
-		}
+		token_count = token_counter(&lineptr);
 		argv = malloc(sizeof(char *) * (token_count + 1));
 		if (argv == NULL)
 			return (-1);
@@ -55,4 +51,29 @@ int main(__attribute__((unused))int argc, char **argv)
 	}
 	free(lineptr);
 	return (0);
+}
+
+/**
+ * token_counter - Evaluates the number of tokens in the command string
+ * @lineptr: Pointer to the string containing the command passed to the
+ * shell
+ *
+ * Return: The number of tokens in the command
+ */
+int token_counter(char **lineptr)
+{
+	int token_count = 0;
+	char *token;
+	const char *delim = " \n";
+
+	if (lineptr == NULL || *lineptr == NULL)
+		return (0);
+	token = _strtok(*lineptr, delim);
+	while (token)
+	{
+		token_count++;
+		free(token);
+		token = _strtok(NULL, delim);
+	}
+	return (token_count);
 }

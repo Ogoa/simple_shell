@@ -4,6 +4,8 @@
  * check_builtin - Checks if the command given is a shell bult-in
  * and executes it if a match is found
  * @argv: Pointer to the array of arguments passed into the program
+ * @lineptr: Pointer to the string holding the command entered
+ * into the terminal
  *
  * Return: 1 if the arguments passed is a shell built-in command, otherwise 0
  * Description: If argv[0] is a shell built-in, the relevant function is
