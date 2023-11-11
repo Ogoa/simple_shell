@@ -22,7 +22,7 @@ int main(__attribute__((unused))int argc, char **argv)
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))
-			printf("%s", prompt);
+			_print(prompt);
 		if (_getline(&lineptr, &n, stdin) == -1)
 		{
 			free(lineptr);

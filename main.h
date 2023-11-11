@@ -11,6 +11,10 @@
 
 extern char **environ;
 
+/* Functions used to print strings */
+int _putchar(char c);
+size_t _print(const char *str);
+
 /* Custom implementation of native C functions */
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 void *_realloc(void *ptr, size_t old_size, size_t new_size);
