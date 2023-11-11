@@ -29,6 +29,8 @@ int main(__attribute__((unused))int argc, char **argv)
 			exit(EXIT_SUCCESS);
 		}
 		token_count = token_counter(&lineptr);
+		if (!token_count)
+			continue;
 		argv = malloc(sizeof(char *) * (token_count + 1));
 		if (argv == NULL)
 			return (-1);
