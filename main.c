@@ -22,13 +22,15 @@ int main(__attribute__((unused))int argc, char **argv)
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))
-			printf("%s", prompt);
+			_print(prompt);
 		if (_getline(&lineptr, &n, stdin) == -1)
 		{
 			free(lineptr);
 			exit(EXIT_SUCCESS);
 		}
 		token_count = token_counter(&lineptr);
+		if (!token_count)
+			continue;
 		argv = malloc(sizeof(char *) * (token_count + 1));
 		if (argv == NULL)
 			return (-1);
