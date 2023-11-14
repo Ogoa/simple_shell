@@ -214,3 +214,11 @@ char *_strcpy(char *dest, const char *src)
 ```
 `dest` is a pointer to the memory address being copied to.
 `src` is a pointer to the memory address being copied from.
+
+`_print.c`<br>
+This source file contains a function `_print` that prints a string on the standard output stream. 
+The function prototype is:
+```
+size_t _print(const char *str);
+```
+`str` is the string to be printed
