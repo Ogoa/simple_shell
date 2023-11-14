@@ -205,3 +205,38 @@ The function prototype is:
 void free_arr(char **arr);
 ```
 `arr` is the array of strings.
+
+`strcpy.c`<br>
+This source file contains a function `_strcpy` that Copies contents from one memory block to another memory block.<br>
+The function prototype is:
+```
+char *_strcpy(char *dest, const char *src);
+```
+`dest` is a pointer to the memory address being copied to.
+`src` is a pointer to the memory address being copied from.
+
+`_print.c`<br>
+This source file contains a function `_print` that prints a string on the standard output stream. 
+The function prototype is:
+```
+size_t _print(const char *str);
+```
+`str` is the string to be printed.
+
+`pull_request_template.md`<br>
+This markdown file contains the commit instructions. It contains a list of requirements that need to be met before a pull request is approved.
+
+`main.c`<br>
+This source file contains the `main` function that implements the shell program.
+This is the entry point for our shell.
+The function prototype is:
+```
+int main(__attribute__((unused))int argc, char **argv)
+```
+`argc` is the number of arguments passed to the program in the terminal
+`argv` is the array of strings passed as arguments into the program
+
+```
+int token_counter(char **lineptr)
+```
+`lineptr` is a pointer to the string containing the command passed to the shell.
