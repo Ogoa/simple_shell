@@ -223,5 +223,15 @@ size_t _print(const char *str);
 ```
 `str` is the string to be printed.
 
-`pull_request_template.md`
-This markdown file contains the commit instructions. It contains a list of requirements that need to be met before a pull request is approved. 
+`pull_request_template.md`<br>
+This markdown file contains the commit instructions. It contains a list of requirements that need to be met before a pull request is approved.
+
+`main.c`
+This source file contains the `main` function that implements the shell program.
+This is the entry point for our shell.
+The function prototype is:
+```
+int main(__attribute__((unused))int argc, char **argv)
+```
+`argc` is the number of arguments passed to the program in the terminal
+`argv` is the array of strings passed as arguments into the program
