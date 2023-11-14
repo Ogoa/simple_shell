@@ -235,3 +235,8 @@ int main(__attribute__((unused))int argc, char **argv)
 ```
 `argc` is the number of arguments passed to the program in the terminal
 `argv` is the array of strings passed as arguments into the program
+
+```
+int token_counter(char **lineptr)
+```
+`lineptr` is a pointer to the string containing the command passed to the shell.
