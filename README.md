@@ -221,4 +221,7 @@ The function prototype is:
 ```
 size_t _print(const char *str);
 ```
-`str` is the string to be printed
+`str` is the string to be printed.
+
+`pull_request_template.md`
+This markdown file contains the commit instructions. It contains a list of requirements that need to be met before a pull request is approved. 
