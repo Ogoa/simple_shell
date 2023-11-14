@@ -205,3 +205,12 @@ The function prototype is:
 void free_arr(char **arr);
 ```
 `arr` is the array of strings.
+
+`strcpy.c`<br>
+This source file contains a function `_strcpy` that Copies contents from one memory block to another memory block.<br>
+The function prototype is:
+```
+char *_strcpy(char *dest, const char *src)
+```
+`dest` is a pointer to the memory address being copied to.
+`src` is a pointer to the memory address being copied from.
