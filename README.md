@@ -226,7 +226,7 @@ size_t _print(const char *str);
 `pull_request_template.md`<br>
 This markdown file contains the commit instructions. It contains a list of requirements that need to be met before a pull request is approved.
 
-`main.c`
+`main.c`<br>
 This source file contains the `main` function that implements the shell program.
 This is the entry point for our shell.
 The function prototype is:
