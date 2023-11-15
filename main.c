@@ -1,81 +1,49 @@
 #include "main.h"
 
-int token_counter(char **lineptr);
-
 /**
- * main - Implement a simple shell program
- * @argc: Number of arguments passed to the program in the terminal
- * @argv: Array of strings passed as arguments into the program
+ * main - The main function of the program.
+ * @argc: The number of command-line arguments.
+ * @argv: An array of strings containing the command-line arguments.
  *
- * Return: Always 0 (Successful exit)
+ * Return: 0 on success, otherwise error codes.
  */
-int main(__attribute__((unused))int argc, char **argv)
+int main(int argc, char **argv)
 {
-	char *prompt = "($) ";
-	char *lineptr;
-	int i = 0;
-	size_t n = 0;
-	char *token;
-	int token_count = 0;
-	const char *delim = " \n";
-
-	while (1)
+	/* Initialize the info data structure */
+	info_type info[] = { INFO_INIT };
+	/* Initialize the file descriptor to 2 */
+	int file_descriptor = 2;
+	/* Inline assembly to modify the file descriptor */
+	asm ("mov %1, %0\n\t"
+		"add $3, %0"
+		: "=r" (file_descriptor)
+		: "r" (file_descriptor));
+	/* Check the number of command-line arguments */
+	if (argc == 2)
 	{
-		if (isatty(STDIN_FILENO))
-			_print(prompt);
-		if (_getline(&lineptr, &n, stdin) == -1)
+		/* Attempt to open the specified file */
+		file_descriptor = open(argv[1], O_RDONLY);
+		if (file_descriptor == -1)
 		{
-			free(lineptr);
-			exit(EXIT_SUCCESS);
+			/* Handle different error cases */
+			if (errno == EACCES)
+				exit(126);
+			if (errno == ENOENT)
+			{
+				_eputs(argv[0]);
+				_eputs(": 0: Can't open ");
+				_eputs(argv[1]);
+				_eputchar('\n');
+				_eputchar(BUF_FLUSH);
+				exit(127);
+			}
+			return (EXIT_FAILURE);
 		}
-		token_count = token_counter(&lineptr);
-		if (!token_count)
-			continue;
-		argv = malloc(sizeof(char *) * (token_count + 1));
-		if (argv == NULL)
-			return (-1);
-		token = _strtok(lineptr, delim);
-		i = 0, token_count = 0;
-		while (token)
-		{
-			argv[i++] = _strdup(token);
-			free(token);
-			token = _strtok(NULL, delim);
-		}
-		argv[i] = NULL;
-		if (check_builtin(argv, &lineptr))
-		{
-			free_arr(argv);
-			continue;
-		}
-		_execute(argv);
-		free_arr(argv);
+		info->readfd = file_descriptor;
 	}
-	free(lineptr);
-	return (0);
-}
-
-/**
- * token_counter - Evaluates the number of tokens in the command string
- * @lineptr: Pointer to the string containing the command passed to the
- * shell
- *
- * Return: The number of tokens in the command
- */
-int token_counter(char **lineptr)
-{
-	int token_count = 0;
-	char *token;
-	const char *delim = " \n";
-
-	if (lineptr == NULL || *lineptr == NULL)
-		return (0);
-	token = _strtok(*lineptr, delim);
-	while (token)
-	{
-		token_count++;
-		free(token);
-		token = _strtok(NULL, delim);
-	}
-	return (token_count);
+	/* Populate environment list */
+	populate_env_list(info);
+	read_history(info);
+	hsh(info, argv);
+	return (EXIT_SUCCESS);
 }
