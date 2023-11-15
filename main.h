@@ -8,7 +8,6 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 #include <fcntl.h>
-#include <string.h>
 
 extern char **environ;
 
