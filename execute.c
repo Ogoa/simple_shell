@@ -11,7 +11,6 @@ void _execute(char **argv)
 	pid_t pid;
 	char *command_path;
 	int wstatus;
-	char *one = "./hsh: 1: ", *two = ": not found\n";
 
 	if (argv)
 	{
@@ -40,12 +39,6 @@ void _execute(char **argv)
 				if (command_path)
 					free(command_path);
 			}
-		}
-		else
-		{
-			write(STDERR_FILENO, _strcat(one, _strcat(argv[0],
-							two)), _strlen(one) + _strlen(two) + _strlen(argv[0]));
-			exit(127);
 		}
 	}
 }
