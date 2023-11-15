@@ -23,7 +23,7 @@ int main(__attribute__((unused))int argc, char **argv)
 	{
 		if (isatty(STDIN_FILENO))
 			_print(prompt);
-		if (_getline(&lineptr, &n, stdin) == -1)
+		if (getline(&lineptr, &n, stdin) == -1)
 		{
 			free(lineptr);
 			exit(EXIT_SUCCESS);
@@ -34,13 +34,13 @@ int main(__attribute__((unused))int argc, char **argv)
 		argv = malloc(sizeof(char *) * (token_count + 1));
 		if (argv == NULL)
 			return (-1);
-		token = _strtok(lineptr, delim);
+		token = strtok(lineptr, delim);
 		i = 0, token_count = 0;
 		while (token)
 		{
-			argv[i++] = _strdup(token);
-			free(token);
-			token = _strtok(NULL, delim);
+			argv[i++] = strdup(token);
+			/*free(token);*/
+			token = strtok(NULL, delim);
 		}
 		argv[i] = NULL;
 		if (check_builtin(argv, &lineptr))
@@ -67,15 +67,16 @@ int token_counter(char **lineptr)
 	int token_count = 0;
 	char *token;
 	const char *delim = " \n";
+	char *lineptr_cpy = *lineptr;
 
 	if (lineptr == NULL || *lineptr == NULL)
 		return (0);
-	token = _strtok(*lineptr, delim);
+	token = strtok(lineptr_cpy, delim);
 	while (token)
 	{
 		token_count++;
-		free(token);
-		token = _strtok(NULL, delim);
+		/*free(token);*/
+		token = strtok(NULL, delim);
 	}
 	return (token_count);
 }
